@@ -6,8 +6,7 @@ const {protectRoute,isAuthorized}=require("../Controllers/userControllers.js");
 
 const {AddHostel,updateHostel,deleteHostel,getHostels,getHostel,searchHostel,createForm,showAllForms}=require("../Controllers/hostelController.js")
 
-router.route("/addHostel").post(protectRoute,isAuthorized,AddHostel)
-
+router.route("/addHostel").post(protectRoute,AddHostel)
 
 router.route("/updateHostel/:id").patch(protectRoute,isAuthorized,updateHostel);
 

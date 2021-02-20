@@ -8,11 +8,11 @@ name:{
     required:true
 },
 description:String,
-dailyPrice:{
+dayPrice:{
     type:Number,
     required:true
 },
-monthlyPrice:{
+monthPrice:{
 type:Number,
 required:true
     
@@ -38,6 +38,9 @@ owner:{
     type: mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true
+},
+image:{
+    type:String
 }
     
 })

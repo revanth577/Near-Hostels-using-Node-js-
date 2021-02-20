@@ -1,8 +1,5 @@
 const mongoose=require("mongoose");
-
-
-
-
+const moment=require("moment")
 
 const contactSchema=new mongoose.Schema({
     
@@ -27,7 +24,7 @@ const contactSchema=new mongoose.Schema({
     },
     date:{
         type:Date,
-        defualt:Date.now()
+        defualt:moment().format('MMMM Do YYYY, h:mm:ss a')
     }
     
 

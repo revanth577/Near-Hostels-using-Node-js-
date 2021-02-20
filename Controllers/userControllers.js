@@ -27,7 +27,7 @@ exports.Signup=async  (req,res)=>
   catch(err)
   {
       console.log(err);
-      res.status(400).json({
+      res.status(200).json({
           status:"failure",
           error:err.message
       })
@@ -45,7 +45,7 @@ exports.login=async (req,res)=>{
         if(userExits)
         {
             
-            const token=jwt.sign({id:userExits["_id"]},SECRET_KEY,{ expiresIn: '1h' });
+            const token=jwt.sign({id:userExits["_id"]},SECRET_KEY,{ expiresIn: '7d' });
             
            userExits.password=undefined;
 
@@ -61,7 +61,7 @@ exports.login=async (req,res)=>{
     }
     catch(err)
     {
-        res.status(400).json({
+        res.status(200).json({
           status:"failure",
           error:err.message
       })
@@ -76,7 +76,9 @@ exports.protectRoute=async (req,res,next)=>{
         
         const token=req.headers.token;
         
+        
         const userId=jwt.verify(token,SECRET_KEY);
+         console.log(userId)
         
         const userExits=await userModel.findById(userId.id);
         
@@ -85,6 +87,8 @@ exports.protectRoute=async (req,res,next)=>{
             
             // res.clearCookie("token");
             req.user=userExits;
+            console.log("proected")
+            
             next();
         }
         else{
@@ -95,7 +99,7 @@ exports.protectRoute=async (req,res,next)=>{
     
     catch(err)
     {
-        res.status(400).json({
+        res.status(200).json({
           status:"failure",
           error:err.message
       })
@@ -125,7 +129,7 @@ exports.isAuthorized=(req,res,next)=>{
     {
         
         
-        res.status(400).json({
+        res.status(200).json({
           status:"failure",
           error:err.message
       })

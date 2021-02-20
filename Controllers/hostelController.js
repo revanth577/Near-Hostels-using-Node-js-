@@ -1,19 +1,20 @@
 
 const hostelModel=require("../models/hostelModel.js");
-
+const userModel=require("../models/userModel.js")
 
 const contactModel=require("../models/contactModel.js");
 
 exports.AddHostel=async (req,res)=>{
-
-
 try{
 
+console.log("add hostel")
     const hostelData=req.body;//owner
     
     const hostel=new hostelModel(hostelData);
     hostel.owner=req.user._id;
-    
+    const user=await userModel.findById(req.user._id);
+    user.role="owner"
+    await user.save({validatBeforeSave:true})
     await hostel.save();
     
     
@@ -26,7 +27,7 @@ try{
 }
 catch(err)
 {
-    res.status(400).json({
+    res.status(200).json({
           status:"failure",
           error:err.message
       })
@@ -112,7 +113,7 @@ exports.getHostels=async (req,res)=>{
         
     }catch(err)
     {
-        res.status(400).json({
+        res.status(200).json({
           status:"failure",
           error:err.message
       })
@@ -221,7 +222,6 @@ exports.createForm=async (req,res)=>{
         res.status(200).json({
             
             status:"success",
-            data:newForm
             
             
         })
@@ -230,7 +230,7 @@ exports.createForm=async (req,res)=>{
     catch(err)
     {
         
-         res.status(400).json({
+         res.status(200).json({
           status:"failure",
           error:err.message
       })
@@ -268,7 +268,7 @@ exports.showAllForms=async (req,res)=>{
     }
     catch(err)
     {
-         res.status(400).json({
+         res.status(200).json({
           status:"failure",
           error:err.message
       })
